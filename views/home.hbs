@@ -1,0 +1,91 @@
+<header class="header" style="background: {{webData.headerImageUrl}};">
+    <div class="header-content">
+        <h1 class="heading">
+            <p class="small-text">
+            {{webData.smallText}}
+            </p>
+            {{webData.largeText}}
+        </h1>
+    </div>
+    <div class="btn-menu">
+        <a href="./blog/" class="btn grey">Đọc bài viết</a>
+        <a href="./game/" class="btn red">Làm thử Quiz</a>
+    </div>
+</header>
+<div class="recom-text">
+    <h1>Bài viết nổi bật</h1>
+</div>
+<div class="post-recom">
+    <div class="popular-post">
+        {{#each blogData}}
+            <div class="blog-section">
+                <div class="blog-card" data-id="{{this.id}}">
+                    <a href="/blog/{{this.categoryTag.[0]}}/{{this.id}}">
+                        <img src="{{this.bannerSrc}}" alt="" class="blog-img">
+                        <h2 style="margin-left:12px">{{this.title}}</h2>
+                        <div class="overview-content">
+                            {{this.overview}}
+                        </div>
+                    </a>
+                    <a href="/blog/{{this.categoryTag.[0]}}/{{this.id}}" class="btn grey">Đọc bài</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+    <div class="read-more">
+        <a href="./blog/" class="recom-text">
+            Đọc thêm
+        </a>
+    </div>
+</div>
+<div class="video-container">
+    <div class="video-recom">
+        <div class="video-title">
+            <h2><i class="fa-solid fa-circle-play"></i> Video Nổi Bật</h2>
+        </div>
+        <div class="col-recom">
+            <div class="col-l">
+                <iframe
+                    src="{{webData.largeVideoUrl}}" 
+                    frameborder="0" 
+                    allow="accelerometer; clipboard-write;
+                    encrypted-media; gyroscope; 
+                    picture-in-picture" allowfullscreen>
+                </iframe>
+            </div>
+            <div class="col-r">
+                <iframe 
+                    src="{{webData.smallVideo1Url}}" 
+                    frameborder="0" 
+                    allow="accelerometer; clipboard-write;
+                    encrypted-media; gyroscope; 
+                    picture-in-picture" allowfullscreen>
+                </iframe>
+                <iframe
+                    src="{{webData.smallVideo2Url}}" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; clipboard-write;
+                    encrypted-media; gyroscope; 
+                    picture-in-picture" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="quiz-container" style="background-image: {{webData.quizImageUrl}};">
+    <div class="quiz-detail">
+        <div class="quiz-banner">
+            <div class="header-content" style="margin:0 auto;">
+                <h1 class="heading" style="margin: 0 auto;">
+                    <p class="small-text">
+                    {{webData.quizSmallText}}
+                    </p>
+                    {{webData.quizLargeText}}
+                </h1>
+            </div>
+            <a href="./game/" class="btn red">Làm thử Quiz</a>
+        </div>
+    </div>
+</div>
+<script type="module" src="/js/firebase.js"></script>

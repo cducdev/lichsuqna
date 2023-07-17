@@ -1,0 +1,152 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>const socket = io("/game/");</script>
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/game.css">
+    <style>
+        .green,.green:hover {
+            transform: none;
+            color: aliceblue !important;
+        }
+    </style>
+    <div class="game-container" style="display:flex;
+    flex-direction:row-reverse;
+    align-items:center; 
+    justify-content:center;" data-id="{{uid}}" data-name="{{userName}}" data-hostname="{{hostName}}">
+        {{#if endGame}}
+            <div class="result-box">
+                <h1>Kết quả</h1>
+                <div class="result-content">
+                    {{#each roomResult}}
+                        <div class="user-result">
+                            <img class="profile-avatar" src="{{this.photoUrl}}">
+                            <h2>{{inc @index}}st</h2>
+                            <h2>{{this.name}}</h2>
+                            <h3>{{this.scores}} điểm</h3>
+                            <h3>{{this.timePlay}}</h3>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        {{else}}
+            <div class="col-1">
+                <div class="realtime-scoreboards">
+                    <div class="user-table-info" style="font-size: larger;">
+                        <p>Tên</p>
+                        <p>Số điểm</p>
+                        <p>Xếp hạng</p>
+                    </div>
+                    <div class="user-info" id="host-info" style="background-color: rgba(255, 255, 255, 0.76);">
+                        <p>{{roomInfo.host.userInfo}}</p>
+                        <p>0</p>
+                        <p><span id="ranking">1</span></p>
+                    </div>
+                    <div class="user-info" id="client-info" style="background-color: rgba(255, 255, 255, 0.76);">
+                        <p>{{roomInfo.client.userInfo}}</p>
+                        <p>0</p>
+                        <p><span id="ranking">2</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="hud-info" style="margin-top:0px; display:flex;">
+                    <div class="hud-score">Điểm: <br><span id="score">0</span>/100</div>
+                    <div>Thời gian: <br><span id="time">10:00</span></div>
+                    <div class="hud-qIdx">Câu hỏi: <br><span id="qIdx">1</span>/10</div>
+                    <div style="margin-right:5px">Vị trí: <br><span id="currRanking">1</span>/10</div>
+                </div>
+                <div class="game-area" style="display: flex;">
+                    <div class="question">
+                        <h1 id="question-title"></h1>
+                    </div>
+                    <div class="ans-area">
+                        <div class="choice" onclick="sendAns(this,0)"><span class="ans-Idx">A.</span><div class="choice-content" id="0"></div></div>
+                        <div class="choice" onclick="sendAns(this,1)"><span class="ans-Idx">B.</span><div class="choice-content" id="1"></div></div>
+                        <div class="choice" onclick="sendAns(this,2)"><span class="ans-Idx">C.</span><div class="choice-content" id="2"></div></div>
+                        <div class="choice" onclick="sendAns(this,3)"><span class="ans-Idx">D.</span><div class="choice-content" id="3"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="name-input" style="display: flex; flex-direction:column; align-items:center; justify-content:center; height: 50vh;">
+                {{#if notAuth}}
+                    <h1>Điền tên của bạn</h1>
+                    <input type="text" id="name" placeholder="Your name">
+                    <a class="btn continue" >Tiếp tục</a>
+                    <div class="wait-box" style="display: none;">
+                        <h1>Vui lòng chờ 
+                            {{#if roomInfo.isHost}}
+                                người chơi
+                            {{else}}
+                                chủ phòng
+                            {{/if}}
+                        </h1>
+                        <div class="room-member">
+                            <h1><span id="memberCount">0</span>/2</h1>
+                            <h3>Chủ phòng: <span id="host">{{roomInfo.host.userInfo}}</span></h3>
+                            <h3>Khách: <span id="client">{{roomInfo.client.userInfo}}</span></h3>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="wait-box">
+                        <h1>Vui lòng chờ 
+                            {{#if roomInfo.isHost}}
+                                người chơi
+                            {{else}}
+                                chủ phòng
+                            {{/if}}
+                        </h1>
+                        <div class="room-member">
+                            <h1><span id="memberCount">1</span>/2</h1>
+                            <h3>Chủ phòng: <span id="host">{{roomInfo.host.userInfo}}</span></h3>
+                            <h3>Khách: <span id="client">{{roomInfo.client.userInfo}}</span></h3>
+                        </div>
+                        <div class="share-link">
+
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if roomInfo.isHost}}<a class="btn startGame" >Tiếp tục</a>{{/if}}
+            </div>
+            <div class="result-box" style="display: none;">
+                <h1>Kết quả</h1>
+                <div class="result-content">
+                    <div class="user-result">
+                        <img class="profile-avatar" src="">
+                        <h2>1st</h2>
+                        <h2></h2>
+                        <h3> điểm</h3>
+                        <h3></h3>
+                    </div>    
+                    <div class="user-result">
+                        <img class="profile-avatar" src="">
+                        <h2>2st</h2>
+                        <h2></h2>
+                        <h3> điểm</h3>
+                        <h3></h3>
+                    </div>    
+                </div>
+            </div>
+        {{/if}}
+    </div>
+<script>
+    const shareLink = document.querySelector(".share-link");
+    if (shareLink != null)
+        shareLink.textContent = location.href
+    const room = "{{roomId}}"
+    {{#if endGame}}
+        socket.emit("get-room-data",room)
+    {{else}}
+        {{#if AuthorHost}}
+            socket.emit("join-room",room,"{{uid}}")
+        {{/if}}
+        {{#if roomInfo.isHost}}
+            const startGameBtn = document.querySelector(".startGame")
+            startGameBtn.addEventListener("click",() => {
+                socket.emit("start-game",room)
+            })
+            const isHost = true;
+        {{else}}
+            const isHost = false;
+        {{/if}}
+    {{/if}}
+</script>
+<script src="/js/gameroom.js"></script>

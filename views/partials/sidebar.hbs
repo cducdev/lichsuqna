@@ -1,0 +1,72 @@
+<div class="sidebar">
+        <div class="profile">
+            <div class="profile-details">
+                <img src="{{user.avatar}}" class="profile-avatar">
+                <div class="profile-info">
+                    <div class="user-name">{{user.name}}</div>
+                    <div class="role">{{user.role}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-menu">
+            <ul class="sidebar-list">
+                <a href="./">
+                    <li class="sidebar-list-item">
+                        <i class="fa-solid fa-address-card"></i>
+                        <span class="links-name">Thông tin</span>
+                    </li>
+                </a>
+                <a href="/editor/">
+                    <li class="sidebar-list-item">
+                        <i class="fa-solid fa-pen"></i>
+                        <span class="links-name">Viết bài</span>
+                    </li>
+                </a>
+                <a href="./dashboard">
+                    <li class="sidebar-list-item">
+                        <i class="fa-solid fa-book"></i>
+                        <span class="links-name">Bài viết</span>
+                    </li>
+                </a>
+                <a href="./blog-pending">
+                    <li class="sidebar-list-item">
+                        <i class="fa-solid fa-book"></i>
+                        <span class="links-name">Chờ duyệt ({{pendingLength}})</span>
+                    </li>
+                </a>
+                <a href="/game/">
+                    <li class="sidebar-list-item">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    <span class="links-name">Trò chơi</span>
+                </li>
+                </a>
+            {{#if isNotMember}}
+                <a href="/upload-quiz/">
+                    <li class="sidebar-list-item">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    <span class="links-name">Thêm câu hỏi</span>
+                </a>
+            {{/if}}
+            {{#if user.isAdmin}}
+                <a href="/customize-web/">
+                    <li class="sidebar-list-item">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span class="links-name">Tuỳ biến web</span>
+                    </li>
+                </a>
+                <a href="./manager-user">
+                    <li class="sidebar-list-item">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="links-name">Quản lý người dùng</span>
+                    </li>
+                </a>
+            {{/if}}
+            </ul>
+            <div class="log-out">
+                <a href="./logout">
+                    Đăng xuất
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+</div>

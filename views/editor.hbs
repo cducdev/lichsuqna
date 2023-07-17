@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="/css/editor.css">
+<link rel="stylesheet" href="/css/home.css">
+<div class="blog-banner" style="background-image: url({{bannerSrc}});">
+    <input type="file" accept="image/*" id="banner-upload" hidden>
+    <label class="banner-upload-btn" for="banner-upload">
+        <img src="/img/uploadImg.png" alt="">
+    </label>
+</div>
+<div id="errPopup">
+    <div class="popup">
+        Đã có lỗi xảy ra, vui lòng nhấn F5 hoặc refresh lại trang và thử lại
+    </div>
+</div>
+<div class="alert success-alert">
+    <h3>Upload Success</h3>
+    <a class="close">&times;</a>
+</div>
+<div class="blog">
+    <textarea placeholder="Tiêu đề..." class="title">{{header}}</textarea>
+    <textarea placeholder="Xem trước..." class="overview">{{overview}}</textarea>
+    <textarea placeholder="Viết nội dung của bài viết vào đây..." class="article">{{content}}</textarea>
+    <div class="blog-tag" style="height:120px">
+        <h2>Gắn thẻ bài viết:</h2>
+        {{#each tagArr}}
+            <label class="tag-checkbox" data-tag="{{this.key}}">
+                <input type="checkbox" {{#if this.check}} checked {{/if}}>
+                <span>{{this.value}}</span>
+            </label>
+        {{/each}}
+    </div>
+    <div class="blog-choice">
+        <input type="file" accept="image/*" id="img-upload" hidden>
+        {{#if edit}} 
+            <a class="btn red edit">Chỉnh sửa</a>
+        {{else}}
+            <a class="btn red publish">Đăng bài</a>
+        {{/if}}
+        <label for="img-upload" class="btn grey">Thêm ảnh</label>
+    </div>
+</div>
+<script src="/js/editor.js"></script>
+<script type="module" src="/js/firebase.js"></script>

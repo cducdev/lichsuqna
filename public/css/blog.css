@@ -1,0 +1,252 @@
+body {
+	background-color: rgb(190 204 233 / 48%);
+}
+.main-content {
+	margin: 200px auto;
+	margin-bottom: 5px;
+	width: 80%;
+	height: auto;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+}
+.blog-banner {
+	width: 100%;
+	height: auto;
+	min-height: 450px;
+	background-size: cover;
+	position: relative;
+	color: #ffffff;
+	text-align: center;
+}
+.blog-banner-img {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.img-overlay {
+	width: 100%;
+	min-height: 450px;
+	max-height: 550px;
+	background-color: rgb(29, 22, 22, 0.2);
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+}
+.avatar {
+	width: 40px;
+	height: 40px;
+	background-color: #fff;
+	border-radius: 100%;
+	margin: 5px auto;
+}
+.author-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+}
+.article-info {
+	width: 80%;
+	height: 450px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+.banner-title {
+	margin: 0 auto;
+	font-size: 40px;
+	text-transform: capitalize;
+}
+.blog-title {
+	width: 80%;
+	margin-top: 80px;
+	margin-left: 20px;
+	border-bottom: 1px solid;
+}
+.title {
+	text-align: center;
+	border: none;
+}
+.blog-content {
+	width: 90%;
+	margin: 40px auto;
+}
+.action-btn-group {
+	width: 80%;
+	margin: 5px auto;
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+.action-btn {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	color: #aaa;
+	background-color: rgb(255, 255, 255);
+	outline: 0;
+	border: none;
+	border-radius: 10px;
+	font-size: 25px;
+	margin: 5px;
+}
+.action-btn:focus {
+	outline: none;
+}
+.like {
+	color: rgb(23, 154, 255);
+}
+.dislike {
+	color: red;
+}
+.comment-area {
+	width: 80%;
+	background-color: #fff;
+	margin: 0 auto;
+	margin-bottom: 200px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.comment-options {
+	width: 90%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	margin: 20px auto 0px auto;
+}
+.comment-input {
+	width: 100%;
+	height: 55px;
+	padding: 0 10px;
+	border: none;
+	border-bottom: 1px solid grey;
+	outline: none;
+	font-size: medium;
+}
+.options-btn {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.comments-btn {
+	cursor: pointer;
+	outline: none;
+	color: #fff;
+	border: none;
+	padding: 8px;
+	margin: 5px;
+}
+.cancel {
+	background-color: #f1f1f1;
+	color: grey;
+	font-weight: 500;
+}
+.send {
+	background-color: rgb(7, 123, 246);
+}
+.comment-list {
+	width: 90%;
+	margin: 10px auto;
+}
+.comment {
+	width: 100%;
+	background-color: #f9f9f9;
+	border-radius: 3px;
+	border: 1px solid rgb(213, 213, 213);
+	margin: 15px auto;
+}
+.comment-info,
+.comment-content {
+	width: 95%;
+	margin: 2px auto;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+.comment-options .comment-info {
+	width: 100%;
+}
+.user-avatar {
+	width: 55px;
+	height: 55px;
+	border-radius: 100%;
+	border: 1px solid black;
+	margin: 5px 10px;
+}
+.time {
+	font-size: medium;
+	margin: 5px;
+}
+.options {
+	width: 97%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.options span {
+	font-size: medium;
+	margin: 5px;
+}
+.options span i {
+	cursor: pointer;
+}
+p {
+	font-size: large;
+	line-height: 35px;
+	margin: 10px auto;
+}
+pre {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px;
+}
+code {
+	font-family: "Poppins", sans-serif;
+	display: block;
+	width: 100%;
+	text-align: center;
+	line-height: 20px;
+	font-size: 20px;
+}
+img {
+	width: 80%;
+	display: block;
+	margin: 0 auto;
+}
+hr {
+	width: 90%;
+	margin: 5px auto;
+	color: grey;
+}
+@media only screen and (max-width: 628px) {
+	.main-content {
+		width: 100%;
+		margin: 62px auto;
+	}
+	.banner-title {
+		font-size: 32px;
+	}
+	img {
+		width: 100%;
+	}
+	.article-info {
+		width: 90%;
+	}
+	.comment-area {
+		width: 100%;
+	}
+}

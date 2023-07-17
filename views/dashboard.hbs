@@ -1,0 +1,199 @@
+<link rel="stylesheet" href="/css/login.css">
+{{#if Auth}}
+    <div class="category-path">
+        {{> sidebar}}
+        <div class="overlay"></div>
+        <div class="menu-btn open">
+            <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-close"></i>
+        </div>
+        <div class="dashboard">
+            <div class="dashboard-title">
+                <div class="recom-text">
+                    <h1>{{PageTitle}}</h1>
+                </div>
+            </div>
+            <div class="dashboard-content">
+                {{#if Home}}
+                    <div class="user-profile">
+                        <img src="{{user.avatar}}" class="profile-avatar large">
+                        <h1 style="font-size:xx-large;">
+                            {{user.name}}
+                        </h1>
+                        <h3 style="font-weight: 400;">{{user.role}}</h3>
+                        <a class="btn square green">Chỉnh sửa thông tin</a>
+                        <div class="edit-form">
+                            <h1 style="margin:20px auto;">Chỉnh sửa thông tin của bạn</h1>
+                            <img src="{{user.avatar}}" class="profile-avatar large editMode">
+                            <input type="file" accept="image/*" id="avatar-upload" hidden>
+                            <label for="avatar-upload" style="font-size:x-large; cursor:pointer">
+                                Đăng ảnh<i class="fa-solid fa-file-arrow-up"></i>
+                            </label>
+                            <input class="edit-user-profile name" placeholder="Tên tài khoản..."></input>
+                            <input type="email" class="edit-user-profile email" placeholder="Email..."></input>
+                            <input type="tel" class="edit-user-profile phoneNumber" placeholder="Số điện thoại..."></input>
+                            <a class="btn square high-blue submit-info">Submit info</a>
+                        </div>
+                    </div>
+                    <script type="module" src="/js/dashboard/editprofile.js"></script>
+                {{/if}}
+                
+                {{#if dashboard}}
+                    <div class="popular-post">
+                        {{#each blog}}
+                            <div class="blog-section">
+                                <div class="blog-card" data-id="{{this.id}}">
+                                    <a href="/blog/{{this.categoryTag.[0]}}/{{this.id}}">
+                                        <img src="{{this.bannerSrc}}" alt="" class="blog-img">
+                                        <h2 style="margin-left:12px">{{this.title}}</h2>
+                                        <div class="overview-content">
+                                            {{this.overview}}
+                                        </div>
+                                    </a>
+                                    <div class="action-link">
+                                        <a href="/blog/{{this.categoryTag.[0]}}/{{this.id}}" class="btn grey">Đọc bài</a>
+                                        <a href="/editor/{{this.id}}" class="btn grey">Chỉnh sửa</a>
+                                        <a style="color:black" class="btn red" onclick="deletePost(this,'')">Xoá bài</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+                {{#if pendingBlog}}
+                    <div class="popular-post">
+                        {{#each blog}}
+                            <div class="blog-section">
+                                <div class="blog-card" data-id="{{this.id}}">
+                                    <a href="/blog/pending/{{this.id}}">
+                                        <img src="{{this.bannerSrc}}" alt="" class="blog-img">
+                                        <h2 style="margin-left:12px">{{this.title}}</h2>
+                                        <div class="overview-content">
+                                            {{this.overview}}
+                                        </div>
+                                    </a>
+                                    <div class="action-link">
+                                        {{#if this.isAdmin}}
+                                            <a href="/blog/pending/{{this.id}}" class="btn grey">Đọc thử</a>
+                                            <a class="btn grey" onclick="browseBlog(this)">Duyệt bài</a>
+                                        {{else}}
+                                            <a href="/blog/pending/{{this.id}}" class="btn grey">Đọc thử</a>
+                                            <a href="/editor/pending/{{this.id}}" class="btn grey">Chỉnh sửa</a>
+                                        {{/if}}
+                                        <a style="color:black" class="btn red" onclick="deletePost(this,'/pending')">Xoá bài</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{/if}}
+                {{#if managerUser}}
+                    <div class="user-table">
+                        <div class="user-table-info">
+                            <p>Name</p>
+                            <p>Email</p>
+                            <p>Action</p>
+                        </div>
+                        {{#each userData}}
+                            <div class="user-info">
+                                <p>{{this.displayName}}</p>
+                                <p>{{this.email}}</p>
+                                <div class="action-btn-group">
+                                    <a class="btn green" onclick="changeRole(this)">Phân quyền</a>
+                                    <a class="btn red" onclick="deleteUser(this)">Xoá</a>
+                                </div>
+                            </div>
+                        {{/each}}
+                    <div class="edit-form">
+                        <h1 style="margin:20px auto;">Phân quyền cho người dùng</h1>
+                        <ul id="select-role">
+                            <h2>Vai trò</h2>
+                            <i class="fa-solid fa-caret-down"></i>
+                            <li class="list-role" onclick="chooseRole(this)">Thành viên</li>
+                            <li class="list-role" onclick="chooseRole(this)">Biên tập viên</li>
+                            <li class="list-role" onclick="chooseRole(this)">Quản trị viên</li>
+                        </ul>
+                        <a class="btn square high-blue submit-info">Change role</a>
+                    </div>
+                    </div>
+                    <script src="/js/dashboard/manageruser.js"></script>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+{{else}}
+    <div id="login-form">
+        <div id="auth-container">
+            {{#if isRegister}}
+                <div class="auth-title">
+                    <h1>Đăng ký tài khoản</h1>
+                </div>
+                <div class="auth-info">
+                    <div class="auth-info-box error"></div>
+                    <div class="auth-info-box">
+                        <label class="text-margin">
+                            Email
+                        </label>
+                        <input type="email" placeholder="Enter your email" id="email">
+                    </div>
+                    <div class="auth-info-box"> 
+                        <label class="text-margin">
+                            Account name
+                        </label>
+                        <input type="email" placeholder="Enter your account name" id="usN">
+                    </div>
+                    <div class="auth-info-box">
+                        <label class="text-margin">
+                            Password
+                        </label>
+                        <input type="password" placeholder="Enter your password" id="pwd">
+                    </div>
+                </div>
+                <button class="Btn signUp">Đăng ký</button>
+                <p>Đã có tài khoản?</p>
+                <a href="/user">Nhấn vào đây</a>
+            {{else}}
+                {{#if forgotpassword}}
+                    <div class="auth-title">
+                        <h1>Khôi phục mật khẩu</h1>
+                    </div>
+                    <div class="auth-info">
+                        <div class="auth-info-box error"></div>
+                        <div class="auth-info-box">
+                            <label class="text-margin">
+                                Nhập email của bạn
+                            </label>
+                            <input type="email" placeholder="Enter your email" id="email">
+                        </div>
+                    </div>
+                    <button class="Btn forgot">Quên mật khẩu</button>
+                {{else}}
+                    <div class="auth-title">
+                        <h1>Đăng nhập</h1>
+                    </div>
+                    <div class="auth-info">
+                        <div class="auth-info-box error"></div>
+                        <div class="auth-info-box">
+                            <label class="text-margin">
+                                Email
+                            </label>
+                            <input type="email" placeholder="Enter your email" id="usN">
+                        </div>
+                        <div class="auth-info-box">
+                            <label class="text-margin">
+                                Password
+                            </label>
+                            <input type="password" placeholder="Enter your password" id="pwd">
+                        </div>
+                    </div>
+                    <button class="Btn" id="loginBtn">Đăng nhập</button>
+                    <p>Không có tài khoản?</p>
+                    <a href="/user/register">Nhấn vào đây</a>
+                    <a href="/user/forgotpassword">Quên mật khẩu?</a>
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+{{/if}}
+<script src="/js/dashboard.js"></script>

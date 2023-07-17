@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="/css/blog.css">
+<link rel="stylesheet" href="/css/home.css">
+<div class="main-content" data-id="{{blog.id}}">
+    <div class="blog-banner" style="height: auto;">
+        <img src="{{blog.bannerSrc}}" alt="" class="blog-banner-img">
+        <div class="img-overlay">
+            <div class="article-info">
+                <h1 class="banner-title">{{blog.title}}</h1>
+                <div class="post-info">
+                    <div class="avatar">
+                        <img src="{{author.photoURL}}" class="author-avatar" >
+                    </div>
+                    <div style="margin-bottom:10px;" data-id="{{uid}}">{{author.displayName}} - {{blog.writeTime}}</div>
+                    {{#each blog.categoryTag}}
+                        <div class="square red" style="display:inline; font-weight:300; padding:3px 5px; text-align:center; margin:0 auto;">{{this}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-content">
+        {{{blog.article}}}
+        <p style="margin-top:20px; font-size:100%; width:100%; text-align:end;"><strong>Duyệt bởi: {{browser}}</strong></p>
+    </div>
+</div>
+<div class="action-btn-group">
+    <button class="action-btn {{#if like}} like {{/if}}" id="like">
+        <i class="fa-solid fa-thumbs-up"></i>
+    </button>
+    <button class="action-btn {{#if dislike}}dislike{{/if}}" id="dislike">
+        <i class="fa-solid fa-thumbs-down"></i>
+    </button>
+</div>
+<div class="comment-area">
+    <div class="comment-options">
+        <div class="comment-info">
+            <img class="user-avatar" src="https://firebasestorage.googleapis.com/v0/b/lichsu-e16fa.appspot.com/o/avatar%2F2068oiDkx.jpg?alt=media&token=fec34fdf-d18f-4b23-ab3b-0da8dc9691b6"></img>
+            <input type="text" placeholder="Add a public reply" class="comment-input">
+        </div>
+        <div class="options-btn">
+            {{#if Auth}}
+                <button class="comments-btn cancel">Cancel</button>
+                <button class="comments-btn send">Send</button>
+            {{else}}
+                <a href="/user/" class="comments-btn" style="background-color:lightskyblue;">Đăng nhập</a>
+            {{/if}}
+        </div>
+    </div>
+    <div class="comment-list">
+        {{#each comments}}
+            <div class="comment">
+                <div class="comment-info">
+                    <img class="user-avatar" src="{{this.userAvatar}}"></img>
+                    <h4 style="color: rgba(0, 123, 255, 0.881);">{{this.username}}</h4><p class="time"> - {{this.writeTime}}</p>
+                </div>
+                <div class="comment-content">
+                    <p class="time">{{this.commentContent}}</p>
+                </div>
+                <hr style="width: 95%;">
+                <div class="options">
+                    <span>
+                        <i class="fa-solid fa-thumbs-up like-comment"></i>
+                        {{this.likeCount}}
+                    </span>
+                    <span>
+                        <i class="fa-solid fa-thumbs-down dislike-comment"></i>
+                        {{this.dislikeCount}}
+                    </span>
+                    <span>
+                        <i class="fa-solid fa-reply"></i>
+                        Reply
+                    </span>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+<script src="/js/blog.js"></script>

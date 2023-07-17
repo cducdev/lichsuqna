@@ -1,0 +1,6 @@
+{
+    "git.ignoreLimitWarning": true,
+    "editor.formatOnSave": true,
+    "prettier.tabWidth": 4,
+    "vsintellicode.java.completionsEnabled": false
+}

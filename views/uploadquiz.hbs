@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="/css/game.css">
+<link rel="stylesheet" href="/css/uploadquiz.css">
+<div class="game-container">
+    <div class="alert success-alert">
+        <h3>Upload Success</h3>
+        <a class="close">&times;</a>
+    </div>
+    <div class="hud-info" style="display: flex;">
+        <div class="hud-score">Score: <span id="score">0</span>/100</div>
+        <div class="hud-qIdx">Questions: <span id="qIdx">1</span>/10</div>
+    </div>
+    <div class="game-area" style="display: flex;">
+        <div class="question">
+            <h1 id="question-title"><textarea placeholder="Question" id="question"></textarea></h1>
+        </div>
+        <div class="ans-area">
+            <div class="choice" >
+                <textarea type="text" class="choice-content" placeholder="Ans 1"></textarea>
+                <select id="ansCorrect" onclick="checkChange(this)">
+                    <option value="FALSE">FALSE</option>
+                    <option value="TRUE">TRUE</option>
+                </select>
+            </div>
+            <div class="choice" >
+                <textarea type="text" class="choice-content" placeholder="Ans 2"></textarea>
+                <select id="ansCorrect" onclick="checkChange(this)">
+                    <option value="FALSE">FALSE</option>
+                    <option value="TRUE">TRUE</option>
+                </select>
+            </div>
+            <div class="choice" >
+                <textarea type="text" class="choice-content" placeholder="Ans 3"></textarea>
+                <select id="ansCorrect" onclick="checkChange(this)">
+                    <option value="FALSE">FALSE</option>
+                    <option value="TRUE">TRUE</option>
+                </select>
+            </div>
+            <div class="choice" >
+                <textarea type="text" class="choice-content" placeholder="Ans 4"></textarea>
+                <select id="ansCorrect" onclick="checkChange(this)">
+                    <option value="FALSE">FALSE</option>
+                    <option value="TRUE">TRUE</option>
+                </select>
+            </div>
+        </div>
+        <a class="btn">Add quiz</a>
+    </div>
+</div>
+<script src="/js/uploadquiz.js"></script>

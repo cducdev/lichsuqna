@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="/css/customize.css">
+<header class="header" style="background: {{webData.headerImageUrl}}">
+    <div class="header-content">
+        <h1 class="heading">
+            <input class="small-text custom-text" placeholder="Tiêu đề nhỏ">
+            <textarea class="custom-text head" placeholder="tiêu đề lớn" onkeydown="setHeightForTextArea(this)"></textarea>
+        </h1>
+    </div>
+    <div class="btn-menu">
+        <a class="btn grey update">Cập nhập</a>
+        <input type="file" accept="image/*" id="headerImage" hidden>
+        <label for="headerImage" class="btn red">Đổi ảnh</label>
+    </div>
+</header>
+<div class="recom-text">
+    <h1>Bài viết nổi bật</h1>
+</div>
+<div class="post-recom">
+    <div class="popular-post">
+        {{#each blogData}}
+            <div class="blog-section">
+                <div class="blog-card" data-id="{{this.id}}">
+                    <a href="/blog/{{this.categoryTag.[0]}}/{{this.id}}">
+                        <img src="{{this.bannerSrc}}" alt="" class="blog-img">
+                        <h2 style="margin-left:12px">{{this.title}}</h2>
+                        <div class="overview-content">
+                            {{this.overview}}
+                        </div>
+                    </a>
+                    <a href="/blog/{{this.categoryTag.[0]}}/{{this.id}}" class="btn grey">Đọc bài</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+    <div class="read-more">
+        <a href="/blog/" class="recom-text">
+            Đọc thêm
+        </a>
+    </div>
+</div>
+<div class="video-container">
+    <div class="video-recom">
+        <div class="video-title">
+            <h2><i class="fa-solid fa-circle-play"></i> Video Nổi Bật</h2>
+        </div>
+        <div class="col-recom" style="margin-bottom:20px">
+            <div class="col-l">
+                <div class="large-video">
+                    <input
+                    placeholder="Nhập link Video lớn" 
+                    class="custom-text video-input"
+                    id="largeVideo"
+                    >
+                </div>
+            </div>
+            <div class="col-r">
+                <div class="large-video" style="height:215px">
+                    <input
+                    placeholder="Nhập link Video nhỏ" 
+                    class="custom-text video-input"
+                    id="smallVideo1"
+                    >
+                </div>
+                <div class="large-video" style="height:215px">
+                    <input
+                    placeholder="Nhập link Video nhỏ" 
+                    class="custom-text video-input"
+                    id="smallVideo2"
+                    >
+                </div>
+            </div>
+        </div>
+        <a class="btn grey updateQuiz">Cập nhập</a>
+    </div>
+</div>
+<div class="quiz-container" style="background: {{webData.quizImageUrl}};">
+    <div class="quiz-detail">
+        <div class="quiz-banner">
+            <div class="header-content">
+                <h1 class="heading" style="margin: 0 auto;">
+                    <p class="small-text">
+                    kiểm tra kiến thức của bạn
+                    </p>
+                    với Quiz Game
+                </h1>
+            </div>
+            <a class="btn grey updateQuizImage">Cập nhập</a>
+            <input type="file" accept="image/*" id="quizImage" hidden>
+            <label for="quizImage" class="btn red">Đổi ảnh</label>
+        </div>
+    </div>
+</div>
+<div class="recom-text category">
+    <h1>Thêm - xoá danh mục bài viết</h1>
+</div>
+<div class="add-remove-category">
+    <div class="tag-block">
+        {{#each currentTag}}
+            <label class="tag-checkbox" data-tag="{{this.key}}">
+                <input type="checkbox">
+                <span>{{this.value}}</span>
+            </label>
+        {{/each}}
+    </div>
+    <div class="action-block">
+        <a class="green addTag btn">Thêm danh mục</a>
+        <a class="red deleteTag btn">Xoá danh mục</a>
+    </div>
+</div>
+<script src="/js/customizeweb.js"></script>
+<script type="module" src="/js/firebase.js"></script>

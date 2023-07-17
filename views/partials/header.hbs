@@ -1,0 +1,22 @@
+    <nav class="navbar">
+        <a href="/" style="line-height:10px"> 
+            <img src="/img/logo.png" class="logo">
+        </a>
+        <div class="links-container">
+            <li class="links-item">
+                <a href="/" class="item">Trang chủ</a>
+            </li>
+            <li class="links-item">
+                <a href="/blog/" class="item">Đọc bài</a>
+            </li>
+            {{#if Auth}}
+                <li class="links-item">
+                    <a href="/user" class="item">Quản lý</a>
+                </li>
+            {{else}}
+                <li class="links-item">
+                    <a href="/user" class="item">Đăng nhập</a>
+                </li>
+            {{/if}}
+        </div>
+    </nav>

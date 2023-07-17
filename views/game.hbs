@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/game.css">
+    <style>
+        .green,.green:hover {
+            transform: none;
+            color: aliceblue !important;
+        }
+        .hud-info {
+            margin: 0 auto;
+            margin-top: 130px;
+        }
+        .game-area {
+            margin:0 auto;
+        }
+        .micro {
+            margin:20px auto;
+        }
+    </style>
+    <div class="game-container" {{#if scoreboards}}style="display:block;" {{/if}}data-id="{{uid}}" data-key="{{pushKey}}" style="">
+        {{#if scoreboards}}
+            <div class="user-table">
+                <div class="scoreboard-title">Bảng kết quả</div>
+                <div class="user-table-info" style="font-size: larger;">
+                    <p>Tên</p>
+                    <p>Số điểm</p>
+                    <p>Thời gian</p>
+                </div>
+                {{#each result}}
+                    <div class="user-info" style="background-color: rgba(255, 255, 255, 0.76);">
+                        <p>{{this.username}}</p>
+                        <p>{{this.scores}}</p>
+                        <p>{{this.timePlay}}</p>
+                    </div>
+                {{/each}}
+            </div>
+            <div class="see-more">
+                <a>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <a>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            
+        {{else}}
+            <div class="hud-info">
+                <div class="hud-score">Điểm: <span id="score">0</span>/100</div>
+                <div>Thời gian: <span id="time">10:00</span></div>
+                <div class="hud-qIdx">Câu hỏi: <span id="qIdx">1</span>/10</div>
+            </div>
+            <div class="micro">
+                <i class="fa-solid fa-microphone"></i>
+            </div>
+            <div class="game-area">
+                <div class="question">
+                    <h1 id="question-title"></h1>
+                </div>
+                <div class="ans-area">
+                    <div class="choice" onclick="reqAns(0)"><span class="ans-Idx">A.</span><div class="choice-content" id="0"></div></div>
+                    <div class="choice" onclick="reqAns(1)"><span class="ans-Idx">B.</span><div class="choice-content" id="1"></div></div>
+                    <div class="choice" onclick="reqAns(2)"><span class="ans-Idx">C.</span><div class="choice-content" id="2"></div></div>
+                    <div class="choice" onclick="reqAns(3)"><span class="ans-Idx">D.</span><div class="choice-content" id="3"></div></div>
+                </div>
+            </div>
+            <div class="name-input" style="display: flex; flex-direction:column; align-items:center; justify-content:center; height: 50vh;">
+                {{#if notAuth}}
+                    <h1>Điền tên của bạn</h1>
+                    <input type="text" id="name" placeholder="Your name">
+                {{/if}}
+                <a class="btn continue" >Tiếp tục</a>
+                <a href="/game/scoreboards/" class="btn green">Bảng kết quả</a>
+                <a class="btn green high-blue createBtn">Tạo phòng</a>
+                <a class="btn support" >Hướng dẫn</a>
+                <a href="/" class="btn red">Về trang chủ</a>
+            </div>
+        {{/if}}
+        <div class="overlay"></div>
+        <div class="rule-box">
+            <h1 class="rule-heading">Hướng dẫn</h1>
+            <div class="rule-content">
+                <p>
+                    <strong>1. Quiz Game cơ bản:</strong><br>
+                    +Mỗi lần chơi sẽ nhận 10 câu hỏi ngẫu nhiên được lấy từ ngân hàng câu hỏi, thời
+                    gian là 10 phút cho mỗi lần chơi Với mỗi câu hỏi đều có 4 đáp án tương ứng là A,B,C,D. Trong đó có 3 đáp án
+                    sai và 1 đáp án đúng, nhiệm vụ của người chơi là chọn 1 trong 4 đáp án mà bạn cho là đúng. Sau khi người chơi
+                    chọn đáp án bằng cách nhấn vào đáp án thì hệ thống sẽ kiểm tra đáp án của người chơi, hiện lên màu đỏ và hiện 
+                    màu xanh ở 1 đáp án khác có nghĩa là bạn chọn sai đáp án, nếu đáp án bạn chọn hiện màu xanh thì bạn đã chọn đúng đáp án.<br>
+                    +Cứ tiếp tục như vậy cho đến khi trả lời hết 10 câu hỏi được lấy từ ngân hàng câu hỏi hoặc hết giờ. Sau khi kết 
+                    thúc phần chơi, kết quả sẽ được hệ thống ghi lại và hiển thị ở bảng kết quả (xếp hạng theo các tiêu chí: số điểm -> thời gian) 
+                    Trong đó, số điểm được tính bằng số câu trả lời đúng, mỗi câu trị giá 10 điểm, thời gian được tính bằng thời gian 
+                    bắt đầu cho đến lúc kết thúc phần thi. <br>
+                    <strong>2. Multiplayer Quiz Game:</strong><br>
+                    +Tạo phòng nếu chưa có phòng, nếu đã tạo thì truy cập bằng đường link mà người tổ chức phòng gửi, tất cả người chơi
+                    trong phòng đều chơi chung 1 bộ câu hỏi, vị trí xuất hiện giống nhau, cách thức chơi giống như Quiz Game cơ bản. Mỗi
+                    người chơi khi trả lời câu hỏi thì đáp án đều được gửi về hệ thống kiểm tra và cập nhập số điểm, xếp hạng của từng người
+                    lên bảng xếp hạng của phòng theo thời gian thực. Sau khi tất cả người chơi của phòng đều đã chơi xong thì Hệ thống sẽ 
+                    công bố thông tin kết quả về người đứng vị thứ nhất và vị thứ nhì trong phòng (Ảnh đại diện, tên, điểm, thời gian).
+                </p>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    const scoreboardsData = "{{data}}"
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/game.js"></script>
+<script>
+    const createRoomID = () => {
+        let chars =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let randomStr = "";
+        for (let i = 0; i < 5; i++)
+            randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
+        return randomStr;
+    };
+    const roomID = createRoomID();
+    const socket = io("/game/"+ roomID)
+    if (createBtn)
+        createBtn.addEventListener("click", () => {
+            let userInfo = uid || inpName.value;    
+            console.log("/game/"+roomID)
+            socket.emit("create", roomID, userInfo);
+            document.cookie = `name=${userInfo};expires=700000;path=/`
+            socket.on("createRoomSuccess",(roomID) => {
+                location.href = `${window.location.origin}/game/${roomID}/`
+            })
+        });
+</script>
