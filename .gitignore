@@ -45,6 +45,8 @@ bower_components
 build/Release
 
 # Dependency directories
+package.json
+package-lock.json
 node_modules/
 
 # Optional npm cache directory
@@ -65,3 +67,4 @@ node_modules/
 # dotenv environment variables file
 .vercel
 
+.vscode
